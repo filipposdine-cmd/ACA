@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adult Swimming Programme – Application Form</title>
+
+  <style>
+    :root{
+      --card-bg:#fff;
+      --page-bg:#f5f6f8;
+      --text:#1b1f24;
+      --muted:#5b6775;
+      --border:#e5e7eb;
+      --shadow: 0 10px 25px rgba(0,0,0,.10);
+      --primary:#2563eb;
+      --primary-hover:#1d4ed8;
+      --danger:#dc2626;
+      --danger-bg:#fef2f2;
+      --ok:#16a34a;
+      --ok-bg:#f0fdf4;
+      --radius:16px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background:var(--page-bg);
+      line-height:1.35;
+      padding:24px 12px;
+    }
+
+    .wrap{ max-width: 760px; margin: 0 auto; }
+
+    .card{
+      background:var(--card-bg);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    h1{
+      margin: 0 0 8px;
+      font-size: 22px;
+      letter-spacing: .2px;
+      text-align:center;
+    }
+
+    .intro{
+      margin: 0 0 18px;
+      color: var(--muted);
+      text-align:center;
+    }
+
+    .section{
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section h2{
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 680px){
+      .grid.two{ grid-template-columns: 1fr 1fr; }
+    }
+
+    label{
+      display:block;
+      font-weight:600;
+      margin-bottom: 6px;
+    }
+
+    .hint{
+      display:block;
+      margin-top:4px;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea{
+      width:100%;
+      padding: 12px 12px;
+      border:1px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      outline:none;
+      background:#fff;
+    }
+
+    textarea{ min-height: 110px; resize: vertical; }
+
+    input:focus, textarea:focus{
+      border-color: rgba(37,99,235,.55);
+      box-shadow: 0 0 0 4px rgba(37,99,235,.12);
+    }
+
+    .options{
+      display:grid;
+      gap:10px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background:#fff;
+    }
+
+    .opt{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .opt input{ margin-top: 2px; transform: scale(1.05); }
+
+    .message{
+      display:none;
+      margin-top: 10px;
+      padding: 12px 12px;
+      border-radius: 10px;
+      font-weight: 650;
+    }
+    .message.danger{
+      border: 1px solid rgba(220,38,38,.25);
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+    .message.ok{
+      border: 1px solid rgba(22,163,74,.25);
+      background: var(--ok-bg);
+      color: var(--ok);
+    }
+
+    .actions{ margin-top: 18px; }
+
+    button{
+      width:100%;
+      border:none;
+      border-radius: 10px;
+      padding: 13px 14px;
+      font-size: 16px;
+      font-weight: 700;
+      background: var(--primary);
+      color:#fff;
+      cursor:pointer;
+      transition: .15s ease;
+    }
+
+    button:hover{ background: var(--primary-hover); }
+    button:disabled{ background: #9ca3af; cursor:not-allowed; }
+
+    .small-note{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Adult Swimming Programme – Application Form (18+)</h1>
+      <p class="intro">
+        This programme is designed to support adults who face barriers to being physically active.<br>
+        Please complete this form so we can check eligibility in line with Sport England guidance.
+      </p>
+
+      <!-- Inline result messages -->
+      <div id="successMsg" class="message ok" role="status" aria-live="polite">
+        Thanks — your application has been submitted successfully.
+      </div>
+      <div id="errorMsg" class="message danger" role="alert" aria-live="assertive">
+        Sorry — something went wrong while submitting. Please try again.
+      </div>
+
+      <!-- Web3Forms -->
+      <form id="appForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+        <!-- REQUIRED -->
+        <input type="hidden" name="access_key" value="73ee64a6-87a9-45ef-bafe-6a59b864f249">
+        <!-- Optional -->
+        <input type="hidden" name="subject" value="Adult Swimming Programme – Application">
+        <input type="hidden" name="from_name" value="Adult Swimming Programme Form">
+
+        <!-- Section 1 -->
+        <div class="section">
+          <h2>Section 1: Personal Details</h2>
+
+          <div class="grid two">
+            <div>
+              <label for="fullName">Full name</label>
+              <input id="fullName" name="full_name" type="text" autocomplete="name" required />
+            </div>
+
+            <div>
+              <label for="dob">Date of Birth</label>
+              <input
+                id="dob"
+                name="date_of_birth"
+                type="text"
+                inputmode="numeric"
+                placeholder="DD/MM/YYYY"
+                required
+              />
+              <span class="hint">Enter as DD/MM/YYYY. You must be 18 or over to apply.</span>
+              <div id="dobBlockMsg" class="message danger" aria-live="polite">
+                You must be 18 years or older to apply for this programme.
+              </div>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div>
+              <label>Gender</label>
+              <div class="options" role="group" aria-label="Gender">
+                <label class="opt"><input type="radio" name="gender" value="Female" required> Female</label>
+                <label class="opt"><input type="radio" name="gender" value="Male"> Male</label>
+                <label class="opt"><input type="radio" name="gender" value="Prefer not to say"> Prefer not to say</label>
+              </div>
+            </div>
+
+            <div>
+              <label for="postcode">Postcode</label>
+              <input
+                id="postcode"
+                name="postcode"
+                type="text"
+                autocomplete="postal-code"
+                placeholder="e.g. SW1A 1AA"
+                required
+              />
+              <span class="hint">UK format (we’ll format when you leave the field). Example: <strong>SW1A 1AA</strong></span>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div>
+              <label for="phone">Contact number</label>
+              <input id="phone" name="contact_number" type="tel" autocomplete="tel" required />
+            </div>
+
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="section">
+          <h2>Section 2: Eligibility Criteria</h2>
+
+          <label>Do you currently face any of the following barriers to physical activity? (Tick all that apply)</label>
+          <div class="options" id="barriersBox">
+            <label class="opt"><input type="checkbox" name="barriers[]" value="Long-term health condition"> Long-term health condition</label>
+            <label class="opt"><input type="checkbox" name="barriers[]" value="Mental health challenges"> Mental health challenges</label>
+            <label class="opt"><input type="checkbox" name="barriers[]" value="Recovery from illness or treatment"> Recovery from illness or treatment</label>
+            <label class="opt"><input type="checkbox" name="barriers[]" value="Disability or mobility challenges"> Disability or mobility challenges</label>
+            <label class="opt"><input type="checkbox" name="barriers[]" value="Low income / financial barriers"> Low income / financial barriers</label>
+            <label class="opt"><input type="checkbox" name="barriers[]" value="Low confidence or anxiety"> Low confidence or anxiety</label>
+
+            <div>
+              <label class="opt">
+                <input id="barrierOther" type="checkbox" name="barriers[]" value="Other">
+                Other (please specify)
+              </label>
+              <input id="barrierOtherText" name="barriers_other" type="text" placeholder="Please specify" disabled />
+              <span class="hint">If you tick “Other”, please add details.</span>
+            </div>
+
+            <label class="opt">
+              <input id="barrierNone" type="checkbox" name="barriers[]" value="None">
+              None
+            </label>
+          </div>
+
+          <div id="barrierRequiredMsg" class="message danger" aria-live="polite">
+            Please select at least one barrier (this programme is for people who currently face barriers to being active).
+          </div>
+
+          <div id="barrierBlockMsg" class="message danger" aria-live="polite">
+            You selected <strong>“None”</strong>. This programme is for adults who currently face barriers to physical activity,
+            so you are not eligible to apply via this form.
+          </div>
+
+          <div style="margin-top:14px;">
+            <label>How active are you currently?</label>
+            <div class="options" role="group" aria-label="Current activity level">
+              <label class="opt"><input type="radio" name="activity_level" value="Not active at all" required> Not active at all</label>
+              <label class="opt"><input type="radio" name="activity_level" value="Light activity only"> Light activity only</label>
+              <label class="opt"><input type="radio" name="activity_level" value="Some activity but not regularly"> Some activity but not regularly</label>
+              <label class="opt"><input type="radio" name="activity_level" value="Active regularly"> Active regularly</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="section">
+          <h2>Section 3: Health &amp; Wellbeing</h2>
+
+          <label>Does swimming support your health or wellbeing needs? (Tick all that apply)</label>
+          <div class="options">
+            <label class="opt"><input type="checkbox" name="swimming_supports[]" value="Physical health"> Physical health</label>
+            <label class="opt"><input type="checkbox" name="swimming_supports[]" value="Mental wellbeing"> Mental wellbeing</label>
+            <label class="opt"><input type="checkbox" name="swimming_supports[]" value="Recovery / rehabilitation"> Recovery / rehabilitation</label>
+            <label class="opt"><input type="checkbox" name="swimming_supports[]" value="Stress or anxiety management"> Stress or anxiety management</label>
+          </div>
+
+          <div style="margin-top:14px;">
+            <label>Have you taken part in organised physical activity before?</label>
+            <div class="options" role="group" aria-label="Organised activity before">
+              <label class="opt"><input type="radio" name="organised_activity_before" value="Yes" required> Yes</label>
+              <label class="opt"><input type="radio" name="organised_activity_before" value="No"> No</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="section">
+          <h2>Section 4: Motivation</h2>
+
+          <div class="grid">
+            <div>
+              <label for="why">Why would you like to take part in this swimming programme?</label>
+              <textarea id="why" name="motivation_why" placeholder="Short answer..." required></textarea>
+            </div>
+          </div>
+
+          <label>What do you hope to gain from swimming? (Tick all that apply)</label>
+          <div class="options">
+            <label class="opt"><input type="checkbox" name="hopes[]" value="Better physical health"> Better physical health</label>
+            <label class="opt"><input type="checkbox" name="hopes[]" value="Improved mental wellbeing"> Improved mental wellbeing</label>
+            <label class="opt"><input type="checkbox" name="hopes[]" value="Confidence"> Confidence</label>
+            <label class="opt"><input type="checkbox" name="hopes[]" value="Social connection"> Social connection</label>
+            <label class="opt"><input type="checkbox" name="hopes[]" value="Learning a new skill"> Learning a new skill</label>
+          </div>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="section">
+          <h2>Section 5: Consent</h2>
+
+          <label>Do you agree that your anonymised feedback may be used for monitoring and reporting to Sport England?</label>
+          <div class="options" role="group" aria-label="Anonymised feedback consent">
+            <label class="opt"><input type="radio" name="feedback_consent" value="Yes" required> Yes</label>
+            <label class="opt"><input type="radio" name="feedback_consent" value="No"> No</label>
+          </div>
+
+          <div id="consentBlockMsg" class="message danger" aria-live="polite">
+            You selected <strong>“No”</strong>. We can’t accept applications unless you consent to anonymised monitoring/reporting for Sport England.
+          </div>
+
+          <div style="margin-top:14px;">
+            <label class="opt">
+              <input id="confirmAccurate" type="checkbox" name="confirm_accurate" value="Yes" required>
+              Do you confirm that the information provided is accurate?
+            </label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="submitBtn" type="submit">Submit</button>
+          <div class="small-note" id="submitNote">Please answer the consent question to enable submission.</div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('appForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const submitNote = document.getElementById('submitNote');
+
+      const successMsg = document.getElementById('successMsg');
+      const errorMsg = document.getElementById('errorMsg');
+
+      // Barriers
+      const barriersBox = document.getElementById('barriersBox');
+      const noneCheckbox = document.getElementById('barrierNone');
+      const otherCheckbox = document.getElementById('barrierOther');
+      const otherText = document.getElementById('barrierOtherText');
+      const barrierBlockMsg = document.getElementById('barrierBlockMsg');
+      const barrierRequiredMsg = document.getElementById('barrierRequiredMsg');
+
+      // Consent
+      const consentBlockMsg = document.getElementById('consentBlockMsg');
+
+      // Postcode
+      const postcodeInput = document.getElementById('postcode');
+
+      // DOB
+      const dobInput = document.getElementById('dob');
+      const dobBlockMsg = document.getElementById('dobBlockMsg');
+
+      function hideTopMessages(){
+        successMsg.style.display = 'none';
+        errorMsg.style.display = 'none';
+      }
+
+      function getFeedbackConsentValue(){
+        const selected = form.querySelector('input[name="feedback_consent"]:checked');
+        return selected ? selected.value : null; // null if unanswered
+      }
+
+      function getBarrierCheckboxes(){
+        return Array.from(barriersBox.querySelectorAll('input[type="checkbox"][name="barriers[]"]'));
+      }
+
+      function getSelectedBarriers(){
+        return getBarrierCheckboxes().filter(cb => cb.checked).map(cb => cb.value);
+      }
+
+      function updateOtherField(){
+        otherText.disabled = !otherCheckbox.checked;
+        if (!otherCheckbox.checked) otherText.value = '';
+      }
+
+      function updateBarrierRules(changedTarget){
+        const allBarrierChecks = getBarrierCheckboxes();
+
+        if (noneCheckbox.checked){
+          allBarrierChecks.forEach(cb => { if (cb !== noneCheckbox) cb.checked = false; });
+          otherText.value = '';
+          otherText.disabled = true;
+        } else {
+          if (changedTarget && changedTarget !== noneCheckbox && changedTarget.checked){
+            noneCheckbox.checked = false;
+          }
+          updateOtherField();
+        }
+      }
+
+      function barrierSelectionIsValid(){
+        const selected = getSelectedBarriers();
+
+        if (selected.length === 0) return { ok:false, reason:'required' };
+        if (selected.includes('None')) return { ok:false, reason:'none' };
+
+        if (selected.includes('Other') && otherText.value.trim().length < 2){
+          return { ok:false, reason:'other_missing' };
+        }
+
+        return { ok:true };
+      }
+
+      function updateBlockingMessages(){
+        const barrierStatus = barrierSelectionIsValid();
+        const consent = getFeedbackConsentValue();
+
+        barrierRequiredMsg.style.display =
+          (barrierStatus.ok || barrierStatus.reason === 'none') ? 'none' : 'block';
+
+        barrierBlockMsg.style.display =
+          (barrierStatus.reason === 'none') ? 'block' : 'none';
+
+        consentBlockMsg.style.display = (consent === 'No') ? 'block' : 'none';
+      }
+
+      // DOB helpers
+      function parseDOB(value){
+        const v = (value || '').trim();
+        const parts = v.split('/');
+        if (parts.length !== 3) return null;
+
+        const dd = parseInt(parts[0], 10);
+        const mm = parseInt(parts[1], 10);
+        const yyyy = parseInt(parts[2], 10);
+
+        if (!dd || !mm || !yyyy) return null;
+        if (yyyy < 1900 || yyyy > 2100) return null;
+
+        const d = new Date(yyyy, mm - 1, dd);
+        if (d.getFullYear() !== yyyy || d.getMonth() !== (mm - 1) || d.getDate() !== dd) return null;
+        return d;
+      }
+
+      function is18OrOver(dob){
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+        return age >= 18;
+      }
+
+      function updateDobValidity(){
+        const dob = parseDOB(dobInput.value);
+
+        if (!dob){
+          dobInput.setCustomValidity('Please enter a valid date (DD/MM/YYYY).');
+          dobBlockMsg.style.display = 'none';
+          return { ok:false, reason:'invalid' };
+        }
+
+        if (!is18OrOver(dob)){
+          dobInput.setCustomValidity('You must be 18 or over.');
+          dobBlockMsg.style.display = 'block';
+          return { ok:false, reason:'under18' };
+        }
+
+        dobInput.setCustomValidity('');
+        dobBlockMsg.style.display = 'none';
+        return { ok:true };
+      }
+
+      // NEW RULES:
+      // - Submit disabled until consent answered
+      // - Block if consent == No
+      // - Block if barriers invalid
+      // - Block if DOB invalid/under 18
+      function isBlocked(){
+        const consent = getFeedbackConsentValue();
+        const barrierStatus = barrierSelectionIsValid();
+        const dobStatus = updateDobValidity();
+
+        if (!consent) return true;          // unanswered consent disables submit
+        if (consent === 'No') return true;  // No blocks submit
+        if (!barrierStatus.ok) return true; // barrier rules
+        if (!dobStatus.ok) return true;     // DOB rules
+
+        return false;
+      }
+
+      function updateSubmitState(){
+        updateBlockingMessages();
+        // keep DOB message in sync without spamming reportValidity
+        updateDobValidity();
+
+        const blocked = isBlocked();
+
+        submitBtn.disabled = blocked;
+        submitBtn.setAttribute('aria-disabled', blocked ? 'true' : 'false');
+
+        const consent = getFeedbackConsentValue();
+        if (!consent){
+          submitNote.textContent = 'Please answer the consent question to enable submission.';
+        } else if (blocked){
+          submitNote.textContent = 'Please resolve the highlighted eligibility/consent requirement(s) to submit.';
+        } else {
+          submitNote.textContent = 'Your application will be submitted securely.';
+        }
+      }
+
+      // Postcode helpers (format on blur to avoid character scrambling)
+      function formatUKPostcode(raw){
+        let v = (raw || '').toUpperCase().replace(/\s+/g, '');
+        if (v.length <= 3) return v;
+        return v.slice(0, -3) + ' ' + v.slice(-3);
+      }
+
+      function looksLikeUKPostcode(value){
+        const v = (value || '').toUpperCase().trim();
+        const re = /^([A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}|GIR\s?0AA)$/i;
+        return re.test(v);
+      }
+
+      // ---------------- Events ----------------
+
+      barriersBox.addEventListener('change', (e) => {
+        if (e.target && e.target.matches('input[type="checkbox"]')){
+          hideTopMessages();
+          updateBarrierRules(e.target);
+          updateSubmitState();
+        }
+      });
+
+      otherText.addEventListener('input', () => {
+        hideTopMessages();
+        updateSubmitState();
+      });
+
+      form.addEventListener('change', (e) => {
+        hideTopMessages();
+
+        if (e.target && e.target.name === 'feedback_consent'){
+          updateSubmitState(); // enabling happens once consent answered (and other rules satisfied)
+        }
+        if (e.target === otherCheckbox){
+          updateOtherField();
+          updateSubmitState();
+        }
+      });
+
+      // DOB auto-format as DD/MM/YYYY (digits only) without scrambling
+      dobInput.addEventListener('input', () => {
+        hideTopMessages();
+        let v = dobInput.value.replace(/[^\d]/g, '');
+        if (v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
+        if (v.length > 5) v = v.slice(0,5) + '/' + v.slice(5,9);
+        dobInput.value = v;
+
+        // Don't show under-18 message while typing; validate quietly
+        dobBlockMsg.style.display = 'none';
+        dobInput.setCustomValidity('');
+        updateSubmitState();
+      });
+
+      dobInput.addEventListener('blur', () => {
+        hideTopMessages();
+        updateDobValidity();
+        dobInput.reportValidity();
+        updateSubmitState();
+      });
+
+      // Postcode: keep clean while typing, format on blur
+      postcodeInput.addEventListener('input', () => {
+        hideTopMessages();
+        postcodeInput.value = postcodeInput.value.toUpperCase().replace(/[^A-Z0-9\s]/g, '');
+      });
+
+      postcodeInput.addEventListener('paste', () => {
+        setTimeout(() => {
+          postcodeInput.value = postcodeInput.value.toUpperCase().replace(/[^A-Z0-9\s]/g, '');
+        }, 0);
+      });
+
+      postcodeInput.addEventListener('blur', () => {
+        hideTopMessages();
+        postcodeInput.value = formatUKPostcode(postcodeInput.value);
+
+        const v = postcodeInput.value.trim();
+        if (v && !looksLikeUKPostcode(v)){
+          postcodeInput.setCustomValidity('Please enter a valid UK postcode (e.g. SW1A 1AA).');
+        } else {
+          postcodeInput.setCustomValidity('');
+        }
+        postcodeInput.reportValidity();
+      });
+
+      // AJAX submit to Web3Forms
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hideTopMessages();
+
+        updateSubmitState();
+        if (isBlocked()) return;
+
+        if (!form.checkValidity()){
+          form.reportValidity();
+          return;
+        }
+
+        // Extra postcode validity check
+        const pv = postcodeInput.value.trim();
+        if (pv && !looksLikeUKPostcode(pv)){
+          postcodeInput.setCustomValidity('Please enter a valid UK postcode (e.g. SW1A 1AA).');
+          postcodeInput.reportValidity();
+          return;
+        } else {
+          postcodeInput.setCustomValidity('');
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+        submitNote.textContent = 'Submitting your application…';
+
+        try{
+          const formData = new FormData(form);
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          const data = await res.json().catch(() => ({}));
+
+          if (res.ok && data && data.success){
+            successMsg.style.display = 'block';
+            errorMsg.style.display = 'none';
+
+            form.reset();
+
+            // Reset UI state
+            otherText.value = '';
+            otherText.disabled = true;
+            barrierBlockMsg.style.display = 'none';
+            barrierRequiredMsg.style.display = 'block';
+            consentBlockMsg.style.display = 'none';
+            dobBlockMsg.style.display = 'none';
+            postcodeInput.setCustomValidity('');
+            dobInput.setCustomValidity('');
+
+            submitBtn.textContent = 'Submit';
+            updateSubmitState(); // disables again until consent answered
+
+            successMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            errorMsg.style.display = 'block';
+            successMsg.style.display = 'none';
+            submitBtn.textContent = 'Submit';
+            updateSubmitState();
+          }
+        } catch(err){
+          errorMsg.style.display = 'block';
+          successMsg.style.display = 'none';
+          submitBtn.textContent = 'Submit';
+          updateSubmitState();
+        }
+      });
+
+      // Init
+      hideTopMessages();
+      updateOtherField();
+      updateBarrierRules(null);
+      updateDobValidity();
+      updateSubmitState(); // starts disabled until consent is answered (and other rules satisfied)
+    })();
+  </script>
+</body>
+</html>
